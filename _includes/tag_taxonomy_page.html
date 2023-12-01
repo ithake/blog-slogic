@@ -1,0 +1,69 @@
+{%- comment %}
+Adapted from post index.html.
+As an interim step until the tag data has been cleaned up, check for different variations of the provided key.
+- all lower case
+- initial capital letter
+- underscore for space
+- trailing comma
+
+Although multiple concat can occur in one command, as of 11/2023,
+concat fails at build with "concat filter requires an array argument included"
+when it has a nil array passed into it (including `default: []`),
+but not when a nil array is being filtered.
+- OK: {% assign new-array = nil-array | concat: non-nil-array %}
+- Error: {% assign new-array = non-nil-array | concat: posts-lower-comma %}
+{% endcomment -%}
+
+{% assign tag-id = include.tag-id %}
+{% assign tag-name = include.tag-id | capitalize | replace: "_", " " %}
+{% assign tag-id-lower = include.tag-id | lower %}
+{% assign tag-id-lower-comma = tag-id-lower | append: "," %}
+{% assign tag-id-capital = include.tag-id | capitalize %}
+{% assign tag-id-capital-comma = tag-id-capital | append: "," %}
+
+{% assign all-posts = site.tags[include.tag-id] | default: [] %}
+{% assign posts-lower = site.tags[tag-id-lower] | default: [] %}
+{% assign posts-lower-comma = site.tags[tag-id-lower-comma] | default: [] %}
+{% assign posts-capital = site.tags[tag-id-capital] | default: [] %}
+{% assign posts-capital-comma = site.tags[tag-id-capital-comma] | default: [] %}
+
+{%- comment %} comment back in for debugging other tags.
+<br/> tag-id: {{ tag-id | inspect }} ({{ all-posts.size | inspect }})
+<br/> lower: {{ tag-id-lower | inspect }} ({{ posts-lower.size | inspect }})
+<br/> lower-comma: {{ tag-id-lower-comma | inspect }} ({{ posts-lower-comma.size | inspect }})
+<br/> capital: {{ tag-id-capital | inspect }} ({{ posts-capital.size | inspect }})
+<br/> capital-comma: {{ tag-id-capital-comma | inspect }} ({{ posts-capital-comma.size | inspect }})
+{% endcomment -%}
+
+{% assign all-posts = posts-lower | concat: all-posts %}
+{% assign all-posts = posts-lower-comma | concat: all-posts %}
+{% assign all-posts = posts-capital | concat: all-posts %}
+{% assign all-posts = posts-capital-comma | concat: all-posts %}
+{% assign all-posts = all-posts | uniq %}
+
+<div class="post-index grid-container">
+    {% if tag-name == "Latest Articles" %}
+    <h1 class="super-title">Blog</h1>
+    <h2 class="cell sub-title">Our thoughts on technology and design</h2>
+    {% else %}
+    <h2 class="super-title"><a href="{{ site.github.url }}">Blog</a></h2>
+    <h1 class="sub-title">Tagged by: {{ tag-name }}</h1>
+    {% endif %}
+
+    {% comment -%} TODO: Pending design decision
+        <div class="hide-for-large">{% include category_list_compact.html selectedIndex=categoryIndex %}</div>
+        {% include featured_posts.html postsToFilter=allPosts categoryName=categoryName %}
+    {%- endcomment %}
+
+    <div class="cell grid-x">
+        <div class="cell large-7 large-offset-1">
+            {% include post_summary_list.html posts=all-posts paginated=paginated %}
+        </div>
+        <div class="side-lists cell large-2 large-offset-2 grid-padding-y grid-margin-y">
+            {% include tag_cloud.html %}
+            {% include author_list.html %}
+        </div>
+    </div>
+</div>
+
+{% include site-footer.html %}

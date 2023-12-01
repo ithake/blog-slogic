@@ -1,0 +1,48 @@
+---
+layout: default
+title: Posts By Tag
+permalink: /tags
+---
+
+{% assign tag_names = "" | split: "|"  %}
+
+{% comment %}
+  Tags have a mix of lower case, all capitals, first word capitalised,
+  Tags intended to be comma separated have been read as stored as "my-tag,"
+  Tags without quote delimiters are stored as separate words ["my", "tag"]
+{% endcomment%}
+
+{% for posts_by_tag in site.tags %}
+{% assign tag_names = tag_names | push: posts_by_tag.first %}
+{% endfor %}
+
+{% assign tag_names = tag_names | sort %}
+<main class="post-index">
+    <section>
+{% comment -%}
+    Warning: Prototype coding doesn't handle Bad Data!
+    Note that tags with different case letters are considered separate by jekyll,
+    but will have the same slugified ids.
+{%- endcomment %}
+{% include tag_cloud.html tag_names=tag_names %}
+    </section>
+
+    <section class="posts-by-tags">
+        {% for tag_name in tag_names %}
+        {% assign tag_id = tag_name | replace: "#", "hash-" %}
+        <div>
+            <h3 id="{{ tag_id | slugify }}" class="category">
+                {{ tag_name | capitalize | replace: "_", " " }}
+            </h3>
+            {% for post in site.tags[tag_name] %}
+               {% comment %} render/include the post summary {% endcomment %}
+                <article>
+                    <a href="{{ post.url | prepend: baseurl }}">
+                        {{ post.title }}
+                    </a>
+                </article>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </section>
+</main>
