@@ -1,12 +1,7 @@
 ---
 title: Tech
-layout: default
+layout: default_category
 summary: Scott Logic's thoughts and ideas relating to Tech
 image: "/assets/blog.png"
+category: Tech
 ---
-
-{% assign posts = site.categories["Tech"] %}
-{% if posts %}
-  {% assign posts = posts | sort: 'date' | reverse | uniq %}
-{% endif %}
-{% include post_index.html posts=posts categoryName="Tech" %}

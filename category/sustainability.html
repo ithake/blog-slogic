@@ -1,12 +1,7 @@
 ---
 title: Sustainability
-layout: default
+layout: default_category
 summary: Scott Logic's thoughts and ideas relating to Sustainability
 image: "/assets/blog.png"
+category: Sustainability
 ---
-
-{% assign posts = site.categories["Sustainability"] %}
-{% if posts %}
-  {% assign posts = posts | sort: 'date' | reverse | uniq %}
-{% endif %}
-{% include post_index.html posts=posts categoryName="Sustainability" %}
