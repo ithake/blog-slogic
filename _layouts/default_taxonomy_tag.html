@@ -14,14 +14,14 @@ but not when a nil array is being filtered.
 - Error: {% assign new-array = non-nil-array | concat: posts-lower-comma %}
 {% endcomment -%}
 
-{% assign tag-id = include.tag-id %}
-{% assign tag-name = include.tag-id | capitalize | replace: "_", " " %}
-{% assign tag-id-lower = include.tag-id | lower %}
+{% assign tag-id = page.tag %}
+{% assign tag-name = page.tag | capitalize | replace: "_", " " %}
+{% assign tag-id-lower = page.tag | lower %}
 {% assign tag-id-lower-comma = tag-id-lower | append: "," %}
-{% assign tag-id-capital = include.tag-id | capitalize %}
+{% assign tag-id-capital = page.tag | capitalize %}
 {% assign tag-id-capital-comma = tag-id-capital | append: "," %}
 
-{% assign all-posts = site.tags[include.tag-id] | default: [] %}
+{% assign all-posts = site.tags[tag-id] | default: [] %}
 {% assign posts-lower = site.tags[tag-id-lower] | default: [] %}
 {% assign posts-lower-comma = site.tags[tag-id-lower-comma] | default: [] %}
 {% assign posts-capital = site.tags[tag-id-capital] | default: [] %}

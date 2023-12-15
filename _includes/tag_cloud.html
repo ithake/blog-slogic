@@ -28,13 +28,14 @@ Note that tags with different case letters are considered separate by jekyll, bu
 <div class="taxonomy taxonomy-terms-cloud taxo-tags">
     <h5 class="taxonomy-title">Tag Cloud</h5>
     <ul class="taxonomy-terms">
-        {% for tag_name in tag_names %}
+        {% for raw_tag_name in tag_names %}
+        {% assign tag_name = raw_tag_name | default: "untagged" %}
         {% assign tag_id = tag_name | replace: "#", "hash-" %}
         <li>
             <a class="taxonomy-term"
                 href="{{ baseurl }}/tags#{{ tag_id | slugize }}">
                 <span class="taxonomy-label">{{ tag_name }}</span>
-                <span class="taxonomy-count">({{ site.tags[tag_name].size }})</span>
+                <span class="taxonomy-count">({{ site.tags[raw_tag_name].size }})</span>
             </a>
         </li>
         {% endfor %}

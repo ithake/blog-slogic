@@ -10,6 +10,7 @@ $primary: #30638E !default;
 $light: #D3F3EE !default;
 $dark: #403F4C !default;
 $blue: #72A1E5 !default;
+$contrast-blue: #2C74D8 !default;
 
 $gray-100: #f8f9fa !default;
 $gray-200: #eee !default;
@@ -22,6 +23,11 @@ $gray-800: #333 !default;
 $gray-900: #222 !default;
 $link-color: darken($blue, 15%) !default;
 
+.posts-by-tags {
+   .taxonomy-title {
+      color: $contrast-blue;
+   }
+}
 // [Underlying hugo theme] Initially copied from:
 // https://github.com/devopsdojoconsortium/dojoconsortium.org/blob/main/themes/docsy/assets/scss/_taxonomy.scss
 
