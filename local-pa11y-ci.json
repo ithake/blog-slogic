@@ -1,0 +1,17 @@
+{
+  "defaults": {
+    "runners": [
+      "axe"
+    ],
+    "ignore": [
+      "color-contrast"
+    ]
+  },
+
+  "_readme": "call with `npx pa11y-ci --config ./local-pa11y-ci.json`",
+
+  "urls": [
+    "http://localhost:4000/fvlachos/",
+    "http://localhost:4000/2023/12/15/implementing-cost-effective-test-driven-development-in-an-llm-application.html"
+  ]
+}
