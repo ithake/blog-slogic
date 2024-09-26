@@ -1,12 +1,8 @@
 ---
 title: Artificial Intelligence
-layout: default
+layout: default_category
 summary: Scott Logic's thoughts and ideas relating to Artificial Intelligence
 image: "/assets/blog.png"
+category: "Artificial Intelligence"
 ---
 
-{% assign posts = site.categories["Artificial Intelligence"] %}
-{% if posts %}
-  {% assign posts = posts | sort: 'date' | reverse | uniq %}
-{% endif %}
-{% include post_index.html posts=posts categoryName="Artificial Intelligence" %}

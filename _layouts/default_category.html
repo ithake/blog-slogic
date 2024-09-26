@@ -1,0 +1,8 @@
+---
+layout: default
+---
+{% assign posts = site.categories[page.category] %}
+{% if posts %}
+{% assign posts = posts | sort: 'date' | reverse | uniq %}
+{% endif %}
+{% include post_index.html posts=posts categoryName=page.category %}

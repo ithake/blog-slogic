@@ -1,12 +1,8 @@
 ---
 title: Cloud
-layout: default
+layout: default_category
 summary: Scott Logic's thoughts and ideas relating to Cloud Technologies
 image: "/assets/blog.png"
+category: Cloud
 ---
 
-{% assign posts = site.categories["Cloud"] %}
-{% if posts %}
-  {% assign posts = posts | sort: 'date' | reverse | uniq %}
-{% endif %}
-{% include post_index.html posts=posts categoryName="Cloud" %}
